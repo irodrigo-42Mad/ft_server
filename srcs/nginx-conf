@@ -1,0 +1,31 @@
+  server { # configuracion del puerto 80
+    listen       80;
+	listen		 [::]:80;
+    server_name  irodrigosite;
+    return 301 https://$host$request_uri;
+  }
+
+  server { # configuracion del puerto 443
+    listen       443 ssl;
+	listen		 [::]:443 ssl;
+    server_name  irodrigosite;
+    
+	ssl_certificate /etc/nginx/ssl/irodrigosite.pem;
+	ssl_certificate_key /etc/nginx/ssl/irodrigosite.key;
+
+	root /var/www/irodrigosite;
+	index index.html index.php;
+
+    # activate autoindex and 404 redirect
+    location / {
+        autoindex on;
+		try_files $uri $uri/ =404;
+    }
+
+	# activating PHP service
+	location ~ \.php$ {
+		include snippets/fastcgi-php.conf;
+		fastcgi_pass unix:/var/run/php/php7.3-fpm.sock;
+	}
+  }
+
