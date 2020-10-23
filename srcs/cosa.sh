@@ -13,7 +13,10 @@ mkdir /etc/nginx/ssl
 openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out /etc/nginx/ssl/irodrigosite.pem -keyout /etc/nginx/ssl/irodrigosite.key -subj "/C=SP/ST=Madrid/L=Madrid/O=42 Madrid/OU=irodrigo/CN=irodrigosite"
 
 #config NGINX
-mv ./srcs/nginx-conf /etc/nginx/sites-available/irodrigosite
+mkdir /srcs/config
+if [ $A_INDEX = "1" ] ; then mv /srcs/nginx-autoindex /srcs/config/nginx-conf ; else mv /srcs/nginx-conf /srcs/config/nginx-conf ; fi
+#if [ -n "${NGINX_AUTOINDEX}" ] ; then cp ./srcs/nginx-autoindex ./srcs/nginx-conf; fi \
+mv ./srcs/config/nginx-conf /etc/nginx/sites-available/irodrigosite
 ln -s /etc/nginx/sites-available/irodrigosite /etc/nginx/sites-enabled/irodrigosite
 rm -rf /etc/nginx/sites-enabled/default
 

@@ -14,11 +14,10 @@
 	ssl_certificate_key /etc/nginx/ssl/irodrigosite.key;
 
 	root /var/www/irodrigosite;
-	index index.html index.php;
 
     # activate autoindex and 404 redirect
     location / {
-        autoindex off;
+        autoindex on;
 		try_files $uri $uri/ =404;
     }
 

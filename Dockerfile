@@ -15,6 +15,9 @@ RUN apt-get -y install mariadb-server
 #INSTALLING NGINX
 RUN apt-get -y install nginx
 
+#SET ENVIRONMENT VARIABLE FOR CONFIG
+ENV A_INDEX=+0
+
 #INSTALLING WGET
 RUN apt-get -y install wget
 RUN apt-get -y install openssl
